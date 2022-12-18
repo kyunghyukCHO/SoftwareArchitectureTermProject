@@ -38,6 +38,16 @@ public class StudyRepositoryImpl implements StudyRepository{
         String jpql = "select s From Study s";
         boolean isFirstCondition = true;
 
+        if (studySearch.getCategory() == null && studySearch.getStudyName() == null) {
+            if (isFirstCondition) {
+                jpql += " where";
+                isFirstCondition = false;
+            } else {
+                jpql += " and";
+            }
+            jpql += " s.studyStatus = softwareArchitecture.termProject.domain.StudyStatus.RECRUITING";
+        }
+
         // 스터디 카테고리 검색
         if (studySearch.getCategory() != null) {
             if (isFirstCondition) {
