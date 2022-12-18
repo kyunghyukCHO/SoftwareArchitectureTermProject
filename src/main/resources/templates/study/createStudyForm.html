@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>make Study</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px 100px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .header p {
+        font-size: 30px;
+        margin: 0;
+      }
+      .header-center-wrap {
+        align-self: center;
+        display: flex;
+        width: 260px;
+        justify-content: space-between;
+      }
+      .header-center-wrap a {
+        align-self: center;
+        text-decoration: none;
+        color: black;
+      }
+
+      /* main */
+      .body {
+        padding: 50px 350px;
+      }
+      form {
+        background-color: #eee;
+        padding: 20px 20px 70px 20px;
+      }
+      .input-wrap {
+        border-radius: 6px;
+        border: solid 1px #f2f3f7;
+        padding: 4px 8px 4px 16px;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: row;
+        background-color: white;
+        margin-bottom: 10px;
+      }
+      .input-span {
+        display: flex;
+        color: #303441;
+        font-size: 13px;
+        font-weight: 600;
+        flex-basis: 112px;
+        padding-top: 8px;
+        cursor: default;
+      }
+      .input-content {
+        display: flex;
+        flex-grow: 1;
+        min-height: 40px;
+        align-items: center;
+        border: 1px solid #ced4da;
+      }
+      .input-content input {
+        width: 100%;
+        height: 100%;
+        color: #303441;
+        font-size: 13px;
+        background-color: transparent;
+        border-color: transparent;
+        line-height: normal;
+        appearance: none;
+        padding: 0;
+        border: 0;
+        padding: 0 15px;
+      }
+      .main-title {
+        text-align: center;
+        font-weight: 600;
+        font-size: 20px;
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      .time-selector>input {
+        width: 10%;
+        margin: 0 10px 0 10px;
+      }
+    </style>
+</head>
+<body>
+<!--<script th:if="${session.memberId == null}">-->
+<!--    alert("로그인 후 사용할 수 있는 서비스 입니다.");-->
+<!--    location.href = "/studyList";-->
+<!--</script>-->
+<!-- header -->
+<div class="header">
+    <div style="width: 260px"></div>
+    <p>Study With Us</p>
+    <div class="header-center-wrap">
+        <button class="btn btn-primary" onclick="location.href = '/new'">스터디 생성</button>
+        <button class="btn btn-outline-secondar" onclick="location.href = '/logout'">로그아웃</button>
+        <i
+                th:if="${session.memberId != null}"
+                class="fa fa-user-circle"
+                style="font-size: 50px; cursor: pointer"
+                th:onclick="'(()=>{location.href = \'/members/' + ${session.memberId} + '/myStudies\';})()'"
+        ></i>
+        <i
+                th:if="${session.memberId == null}"
+                class="fa fa-user-circle"
+                style="font-size: 50px; cursor: pointer"
+        ></i>
+    </div>
+</div>
+<!-- makeStudy main -->
+<div class="body">
+    <form th:action="@{/new}" th:object="${studyForm}" method="post">
+        <p class="main-title">스터디 생성</p>
+        <div class="input-wrap">
+            <span class="input-span"> 제목 </span>
+            <div class="input-content">
+                <input type="text" th:field="*{name}"/>
+            </div>
+        </div>
+        <div class="input-wrap">
+            <span class="input-span"> 모집 인원 </span>
+            <div class="input-content">
+                <input type="number" th:field="*{capacity}"/>
+            </div>
+        </div>
+
+        <div class="input-wrap">
+            <span class="input-span"> 카테고리 </span>
+            <div class="input-content" style="border: none">
+                <select class="custom-select" th:field="*{category}">
+                    <option value="SPRING">스프링</option>
+                    <option value="NETWORK">네트워크</option>
+                    <option value="NODEJS">Node.JS</option>
+                    <option value="OS">OS</option>
+                    <option value="DATA_STRUCTURE">자료구조</option>
+                    <option value="DATABASE">DB</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-wrap">
+            <span class="input-span"> 지역 </span>
+            <div class="input-content" style="border: none">
+                <span class="input-span" style="height: 100%;">도시</span>
+                <select class="custom-select" th:field="*{city}">
+                    <option value="강원">강원</option>
+                    <option value="경기">경기</option>
+                    <option value="경남">경남</option>
+                    <option value="경북">경북</option>
+                    <option value="광주">광주</option>
+                    <option value="대구">대구</option>
+                    <option value="대전">대전</option>
+                    <option value="부산">부산</option>
+                    <option value="서울">서울</option>
+                    <option value="울산">울산</option>
+                    <option value="인천">인천</option>
+                    <option value="전남">전남</option>
+                    <option value="전북">전북</option>
+                    <option value="제주">제주</option>
+                    <option value="충남">충남</option>
+                    <option value="충북">충북</option>
+                    <option value="온라인">온라인</option>
+                </select>
+            </div>
+            <span class="input-span" style="margin : 0 0 0 100px;">상세 주소</span>
+            <div class="input-content">
+                <input type="text" th:field="*{street}"/>
+            </div>
+            <span class="input-span" style="margin : 0 0 0 100px;">우편 번호</span>
+            <div class="input-content">
+                <input type="number" th:field="*{zipcode}"/>
+            </div>
+        </div>
+
+        <div class="input-wrap">
+            <span class="input-span"> 시간대 </span>
+            <div class="input-content time-selector">
+                <input type="number" maxlength="2" th:field="*{startHour}"/> :
+                <input type="number" maxlength="2" th:field="*{startMinute}"/> ~
+                <input type="number" maxlength="2" th:field="*{endHour}"/> :
+                <input type="number" maxlength="2" th:field="*{endMinute}"/>
+            </div>
+        </div>
+        <div class="input-wrap">
+            <span class="input-span"> 소개글 </span>
+            <div class="input-content">
+                <textarea th:field="*{introductionText}" style="width: 100%; height: 20vh; border: 0;"></textarea>
+            </div>
+        </div>
+        <button
+                class="btn btn-primary"
+                type="submit"
+                style="margin-top: 10px; float: right; width: 15%"
+        >
+            등록하기
+        </button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Study With Us</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 20px 100px;
+            border-bottom: 1px solid #eee;
+        }
+        .modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            display: none;
+
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal.show {
+            display: block;
+        }
+
+        .modal_body {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            width: 500px;
+            height: 300px;
+
+            padding: 40px 110px;
+
+            text-align: center;
+
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+            transform: translateX(-50%) translateY(-50%);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .header p {
+            font-size: 30px;
+            margin: 0;
+        }
+        .header-center-wrap {
+            align-self: center;
+            display: flex;
+            width: 260px;
+            justify-content: space-between;
+        }
+        .header-center-wrap a {
+            align-self: center;
+            text-decoration: none;
+            color: black;
+        }
+
+        /* 메인 */
+        .main-wrap {
+            padding: 20px 200px;
+            display: flex;
+            flex-direction: column;
+        }
+        .filtering-wrap {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .filtering-wrap button {
+            width: 45%;
+            border: inset;
+        }
+        .study-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+        .study-wrap {
+            margin-top: 20px;
+            width: 30%;
+            border-radius: 7px;
+            height: 300px;
+            background-color: #eee;
+        }
+        .login-button-wrap {
+            display: flex;
+            justify-content: space-between;
+        }
+        .login-button-wrap button {
+            width: 43%;
+        }
+
+
+    </style>
+</head>
+<body>
+<!-- header -->
+<div class="header">
+    <div style="width: 260px"></div>
+    <p>Study With Us</p>
+    <div class="header-center-wrap">
+        <button class="btn btn-primary" onclick="location.href = '/new'">스터디 생성</button>
+        <button th:if="${session.memberId == null}" class="btn btn-outline-secondar btn-open-popup">로그인</button>
+        <button th:if="${session.memberId != null}" class="btn btn-outline-secondar" onclick="alert('로그아웃 되었습니다.'); location.href = '/logout';">로그아웃</button>
+        <i
+                th:if="${session.memberId != null}"
+                class="fa fa-user-circle"
+                style="font-size: 50px; cursor: pointer"
+                th:onclick="'(()=>{location.href = \'/members/' + ${session.memberId} + '/myStudies\';})()'"
+        ></i>
+        <i
+                th:if="${session.memberId == null}"
+                class="fa fa-user-circle"
+                style="font-size: 50px; cursor: pointer"
+        ></i>
+    </div>
+    <div class="modal">
+        <form class="modal_body" th:if="${session.memberId == null}" th:action="@{/login}" th:object="${loginForm}" method="post">
+            <p>로그인</p>
+            <input type="text" th:field="*{identity}" class="form-control" aria-label="Default"/>
+            <input type="password" th:field="*{password}" class="form-control" aria-label="Default"/>
+            <div class="login-button-wrap">
+                <button type="submit" class="btn btn-outline-secondar" >
+                    로그인
+                </button>
+                <button type="button" class="btn btn-primary" onclick="(()=>{location.href = '/members/new';})()">회원가입</button>
+            </div>
+
+            <!-- 로그인 실패 시 -->
+            <span style="color: red" id="login-error"></span>
+        </form>
+    </div>
+</div>
+<!-- main -->
+<div class="main-wrap">
+    <!--<div class="filtering-wrap">
+        </div>-->
+
+    <div>
+        <div>
+            <form th:object="${studySearch}" class="form-inline">
+                <div class="form-group mb-2">
+                    <input type="text" th:field="*{studyName}" class="formcontrol" placeholder="스터디명"/>
+                </div>
+                <div class="form-group mx-sm-1 mb-2">
+                    <select th:field="*{category}" class="form-control">
+                        <option value="">카테고리</option>
+                        <option th:each=
+                                        "status : ${T(softwareArchitecture.termProject.domain.Category).values()}"
+                                th:value="${status}"
+                                th:text="${status}">option
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">검색</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="study-list">
+        <!-- 임의로 여섯개 넣었습니다. -->
+        <!-- 제거하고 for문 넣으세요. (스터디 리스트) -->
+        <div class="study-wrap" th:each="study, i: ${studies}">
+            <a th:href="'/studies/' + ${study.id} + '/detail'">
+                <p th:text="'스터디명 : ' + ${#strings.toString(study.name)}">이름</p>
+                <p th:text="'카테고리 : ' + ${#strings.toString(study.category)}"></p>
+                <p th:text="'지역 : ' + ${#strings.toString(study.address.city)}"></p>
+                <p th:text="'모집 인원 : ' + ${#strings.toString(study.capacity)} + '명'">모집 인원</p>
+            </a>
+        </div>
+    </div>
+
+
+</div>
+<script>
+    // 모달
+    const body = document.querySelector("body");
+    const modal = document.querySelector(".modal");
+    const btnOpenPopup = document.querySelector(".btn-open-popup");
+
+    btnOpenPopup.addEventListener("click", () => {
+        modal.classList.toggle("show");
+
+        if (modal.classList.contains("show")) {
+            body.style.overflow = "hidden";
+        }
+    });
+
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.classList.toggle("show");
+
+            if (!modal.classList.contains("show")) {
+                body.style.overflow = "auto";
+            }
+        }
+    });
+</script>
+</body>
+</html>
