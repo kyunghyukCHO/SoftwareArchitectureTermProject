@@ -48,7 +48,7 @@ public class MemberStudyRepositoryImpl implements MemberStudyRepository{
 
     @Override
     public List<Member> findMembers(Long studyId) {
-        return em.createQuery("select ms.member from MemberStudy ms where ms.study.id = :studyId and ms.memberStudyStatus = softwareArchitecture.termProject.domain.MemberStudyStatus.REJECTED", Member.class)
+        return em.createQuery("select ms.member from MemberStudy ms where ms.study.id = :studyId and ms.memberStudyStatus = softwareArchitecture.termProject.domain.MemberStudyStatus.PARTICIPATED", Member.class)
                 .setParameter("studyId", studyId)
                 .getResultList();
     }

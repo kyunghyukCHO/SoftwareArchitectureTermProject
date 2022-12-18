@@ -28,6 +28,7 @@ public class CreateStudyServiceImpl implements CreateStudyService {
         Member member = memberRepository.findOne(memberId);
         Study study = studyRepository.findOne(studyId);
         MemberStudy memberStudy = MemberStudy.createStudy(member, study);
+        memberStudy.setMemberStudyStatus(MemberStudyStatus.PARTICIPATED);
         memberStudyRepository.save(memberStudy);
         return memberStudy.getId();
     }

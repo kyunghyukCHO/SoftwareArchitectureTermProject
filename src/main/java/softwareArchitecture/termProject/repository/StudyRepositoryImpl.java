@@ -80,6 +80,7 @@ public class StudyRepositoryImpl implements StudyRepository{
         if (StringUtils.hasText(studySearch.getStudyName())) {
             query = query.setParameter("name", "%"+studySearch.getStudyName()+"%");
         }
+
         return query.getResultList();
     }
 }
