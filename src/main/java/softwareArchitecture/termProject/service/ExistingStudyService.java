@@ -11,7 +11,7 @@ public interface ExistingStudyService {
 
     Long participateStudy(Long memberId, Long studyId);
 
-    void quitStudy(Long memberStudyId);
+    void quitStudy(Long memberStudyId, Long memberId);
 
     List<Study> showAllStudies();
 

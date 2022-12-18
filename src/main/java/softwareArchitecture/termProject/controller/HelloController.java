@@ -11,6 +11,6 @@ public class HelloController {
     @RequestMapping("/")
     public String home() {
         log.info("home controller");
-        return "home";
+        return "redirect:/studyList";
     }
 }

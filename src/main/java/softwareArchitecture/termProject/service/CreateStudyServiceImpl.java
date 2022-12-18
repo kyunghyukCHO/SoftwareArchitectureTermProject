@@ -22,6 +22,7 @@ public class CreateStudyServiceImpl implements CreateStudyService {
         this.memberStudyRepository = memberStudyRepository;
     }
 
+
     @Override
     public Long createStudy(Long memberId, Long studyId) {
         Member member = memberRepository.findOne(memberId);

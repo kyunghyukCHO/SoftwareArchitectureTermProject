@@ -47,6 +47,7 @@ public class StudyRepositoryImpl implements StudyRepository{
                 jpql += " and";
             }
             jpql += " s.category = :category";
+            jpql += " and s.studyStatus = softwareArchitecture.termProject.domain.StudyStatus.RECRUITING";
         }
 
         //스터디 이름 검색
@@ -58,6 +59,7 @@ public class StudyRepositoryImpl implements StudyRepository{
                 jpql += " and";
             }
             jpql += " s.name like :name";
+            jpql += " and s.studyStatus = softwareArchitecture.termProject.domain.StudyStatus.RECRUITING";
         }
         TypedQuery<Study> query = em.createQuery(jpql, Study.class)
                 .setMaxResults(1000); //최대 1000건

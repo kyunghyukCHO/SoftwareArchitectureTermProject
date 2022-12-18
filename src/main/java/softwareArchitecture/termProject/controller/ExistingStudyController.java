@@ -79,7 +79,7 @@ public class ExistingStudyController {
         Long memberId = (Long)session.getAttribute("memberId");
 
         Long memberStudyId = existingStudyService.findMemberStudy(memberId, studyId);
-        existingStudyService.quitStudy(memberStudyId);
+        existingStudyService.quitStudy(memberStudyId, memberId);
         return "redirect:/studyList";
     }
 

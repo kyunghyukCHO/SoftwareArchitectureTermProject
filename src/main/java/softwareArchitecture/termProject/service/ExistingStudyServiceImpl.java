@@ -44,7 +44,7 @@ public class ExistingStudyServiceImpl implements ExistingStudyService{
     }
 
     @Override
-    public void quitStudy(Long memberStudyId) {
+    public void quitStudy(Long memberStudyId, Long memberId) {
         MemberStudy memberStudy = memberStudyRepository.findById(memberStudyId);
         memberStudy.setMemberStudyStatus(MemberStudyStatus.REJECTED);
     }
