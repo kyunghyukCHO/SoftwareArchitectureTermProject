@@ -10,11 +10,16 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+
+
     <title>마이페이지</title>
     <style>
       * {
         padding: 0;
         margin: 0;
+        font-family: 'Nanum Myeongjo', serif;
       }
       .header {
         display: flex;
@@ -43,10 +48,13 @@
       /* main */
       .body {
         padding: 50px 350px;
+        background-image: url('https://i.ibb.co/Jd3mQ93/2022-12-19-12-02-04.png');
+        background-repeat: no-repeat;
+        background-size: cover;
       }
       .mypage-wrap {
         background-color: #eee;
-        padding: 20px;
+        padding: 20px 50px;
       }
       .input-wrap {
         border-radius: 6px;
@@ -96,6 +104,21 @@
       a:visited, a:hover {
         text-decoration: none;
       }
+      button.btn.btn-primary{
+        background-color: black;
+        color: white;
+      }
+
+      p.headfont{
+        font-size: 50px;
+        font-style: bold;
+      }
+
+      span.input-span{
+        font-size: 15px;
+      }
+
+
 
     </style>
 </head>
@@ -103,7 +126,7 @@
 <!-- header -->
 <div class="header">
     <div style="width: 260px"></div>
-    <p>Study With Us</p>
+    <p class="headfont">Study With Us</p>
     <div class="header-center-wrap">
         <button class="btn btn-primary" onclick="location.href = '/new'">스터디 생성</button>
         <button class="btn btn-outline-secondar" onclick="location.href = '/logout'">로그아웃</button>

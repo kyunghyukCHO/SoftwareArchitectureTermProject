@@ -15,6 +15,7 @@
       * {
         padding: 0;
         margin: 0;
+        font-family: 'Nanum Myeongjo', serif;
       }
       .header {
         display: flex;
@@ -42,7 +43,11 @@
 
       /* main */
       .body {
-        padding: 50px 350px;
+        padding: 50px 250px;
+        background-image: url('https://i.ibb.co/Jd3mQ93/2022-12-19-12-02-04.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+
       }
       form {
         background-color: #eee;
@@ -93,11 +98,48 @@
         font-size: 20px;
       }
 
+      p.headfont{
+        font-size: 50px;
+        font-style: bold;
+      }
+
+      button.btn.btn-primary{
+        background-color: black;
+        border: 0px;
+      }
+
+      a.btn.btn-primary{
+        background-color: black;
+        border: 0px;
+      }
+
+      a{
+            font-family: 'Nanum Myeongjo', serif;
+            text-decoration-line: none;
+            color: white;
+      }
+
+      select.custom-select{
+        width: 10px;
+      }
+
+      span.input-span{
+        margin: 0px 0px 0px 0px;
+      }
+
+      .bottom{
+        margin: auto;
+        text-align: center;
+      }
+
+
       input::-webkit-outer-spin-button,
       input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }
+
+
 
     </style>
 </head>
@@ -105,7 +147,7 @@
 <!-- header -->
 <div class="header">
     <div style="width: 260px"></div>
-    <p>Study With Us</p>
+    <p class="headfont">Study With Us</p>
     <div class="header-center-wrap">
         <button class="btn btn-primary" onclick="location.href = '/new'">스터디 생성</button>
         <button class="btn btn-outline-secondar" onclick="location.href = '/logout'">로그아웃</button>
@@ -169,7 +211,7 @@
         </div>
 
         <div class="input-wrap">
-            <span class="input-span"> 지역 </span>
+            <span style="margin : 0 30px 0 0;" class="input-span"> 지역 </span>
             <div class="input-content" style="border: none">
                 <span class="input-span" style="height: 100%;">도시</span>
                 <select class="custom-select" th:field="*{city}">
@@ -191,15 +233,16 @@
                     <option value="충북">충북</option>
                 </select>
             </div>
-            <span class="input-span" style="margin : 0 0 0 100px;">상세 주소</span>
+            <span class="input-span" style="margin : 0 0 0 20px;">상세 주소</span>
             <div class="input-content">
                 <input type="text" th:field="*{street}"/>
             </div>
-            <span class="input-span" style="margin : 0 0 0 100px;">우편 번호</span>
+            <span class="input-span" style="margin : 0 0 0 20px;">우편 번호</span>
             <div class="input-content">
                 <input type="number" th:field="*{zipcode}"/>
             </div>
         </div>
+        <div class="bottom">
         <a
                 class="btn btn-primary"
                 style="
@@ -220,6 +263,7 @@
         >
             회원가입
         </button>
+        </div>
     </form>
 </div>
 </body>

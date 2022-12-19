@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!D입성TYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
@@ -10,11 +10,19 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+
+
     <title>Study With Us</title>
     <style>
         * {
             padding: 0;
             margin: 0;
+            font-family: 'Nanum Myeongjo', serif;
+        }
+        html{
+            height: 100vh;
         }
         .header {
             display: flex;
@@ -61,7 +69,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-        }
+          }        
         .header p {
             font-size: 30px;
             margin: 0;
@@ -80,10 +88,17 @@
 
         /* 메인 */
         .main-wrap {
-            padding: 20px 200px;
+            padding: 20px 150px;
             display: flex;
             flex-direction: column;
+            width: 100%;
+            height: 100vh;
+/*            background-image: url("https://i.ibb.co/Jd3mQ93/2022-12-19-12-02-04.png");
+            background-size: cover;
+            background-repeat: no-repeat;*/
+            overflow: auto;
         }
+
         .filtering-wrap {
             display: flex;
             flex-direction: row;
@@ -103,10 +118,21 @@
         .study-wrap {
             margin-top: 20px;
             width: 30%;
-            border-radius: 7px;
+            border-radius: 50px;
             height: 300px;
             background-color: #eee;
+            font-size: 20px;
+            padding: 10px;
+            border: 0px solid gray;
         }
+/*        .study-wrap{
+            border-radius: 20px;
+            font-size: 20px;
+            border-color: black;
+            border: 10px;
+            padding: 10px;
+        }*/
+
         .login-button-wrap {
             display: flex;
             justify-content: space-between;
@@ -114,6 +140,93 @@
         .login-button-wrap button {
             width: 43%;
         }
+        #category1{ 
+            height: 50px;
+        }
+        #category2{
+            height: 50px;
+            border-color : black;
+            border: 3px;
+        }
+        #category3{ 
+            height: 50px;
+            margin: 0px 20px;
+        }
+        #c1div{
+            padding: 20px;
+        }
+        #c2div{
+            padding: 20px;
+        }
+        #categories{
+            background-color: black;
+            border-radius: 50px;
+
+        }
+        #category3.btn.btn-primary.mb-2{
+            background-color: white;
+            height: 50px;
+            border-color: black;
+            color: black;
+        }
+        #studycreatebtn{
+            border-color: black;
+            background-color: black;
+        }
+        #category1.formcontrol{
+            margin-left: 20px;
+            padding: 20px;
+        }
+        form#categories.form-inline{
+            padding-left: 80px;
+            padding-right: 50px;
+        }
+        #headfont{
+            font-size: 50px;
+            font-style: bold;
+        }
+        .category-wrap{
+            width: 800px;
+            margin: auto;
+        }
+        a{
+            font-family: 'Nanum Myeongjo', serif;
+            text-decoration-line: none;
+            color: #C2BFD9;
+        }
+        .detail{
+            height: 12.5%;
+            text-align: center;
+            margin: 0px;
+            color: black;
+        }
+        .detail-data{
+            height: 12.5%;
+            text-align: center;
+            margin: 0px;
+            color: gray;
+            font-size: 18px;
+            color: gray;
+        }
+        .main-back{
+            height: 100%;
+            background-image: url("https://i.ibb.co/Jd3mQ93/2022-12-19-12-02-04.png");
+            background-size: cover;
+            background-repeat: repeat;
+            overflow: auto;
+        }
+        body{
+            height: 100%;
+            overflow: auto;
+        }
+
+        #btn2{
+            background-color: black;
+            color: white;
+        }
+
+
+
 
 
     </style>
@@ -122,9 +235,9 @@
 <!-- header -->
 <div class="header">
     <div style="width: 260px"></div>
-    <p>Study With Us</p>
+    <p id="headfont">Study With Us</p>
     <div class="header-center-wrap">
-        <button class="btn btn-primary" onclick="location.href = '/new'">스터디 생성</button>
+        <button id= "studycreatebtn"class="btn btn-primary" onclick="location.href = '/new'">스터디 생성</button>
         <button th:if="${session.memberId == null}" class="btn btn-outline-secondar btn-open-popup">로그인</button>
         <button th:if="${session.memberId != null}" class="btn btn-outline-secondar" onclick="alert('로그아웃 되었습니다.'); location.href = '/logout';">로그아웃</button>
         <i
@@ -148,7 +261,7 @@
                 <button type="submit" class="btn btn-outline-secondar" >
                     로그인
                 </button>
-                <button type="button" class="btn btn-primary" onclick="(()=>{location.href = '/members/new';})()">회원가입</button>
+                <button id="btn2" type="button" class="btn btn-primary" onclick="(()=>{location.href = '/members/new';})()">회원가입</button>
             </div>
 
             <!-- 로그인 실패 시 -->
@@ -157,18 +270,20 @@
     </div>
 </div>
 <!-- main -->
+
+<div class="main-back">
 <div class="main-wrap">
     <!--<div class="filtering-wrap">
         </div>-->
 
     <div>
-        <div>
-            <form th:object="${studySearch}" class="form-inline">
-                <div class="form-group mb-2">
-                    <input type="text" th:field="*{studyName}" class="formcontrol" placeholder="스터디명"/>
+        <div class="category-wrap">
+            <form th:object="${studySearch}" class="form-inline" id="categories">
+                <div class="form-group mb-2" id="c1div">
+                    <input type="text" th:field="*{studyName}" class="formcontrol"id="category1" placeholder="스터디명"/>
                 </div>
-                <div class="form-group mx-sm-1 mb-2">
-                    <select th:field="*{category}" class="form-control">
+                <div class="form-group mx-sm-1 mb-2" id="c2div">
+                    <select th:field="*{category}" class="form-control" id= "category2">
                         <option value="">카테고리</option>
                         <option th:each=
                                         "status : ${T(softwareArchitecture.termProject.domain.Category).values()}"
@@ -177,7 +292,7 @@
                         </option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">검색</button>
+                <button type="submit" class="btn btn-primary mb-2" id="category3">검색</button>
             </form>
         </div>
     </div>
@@ -187,16 +302,22 @@
         <!-- 제거하고 for문 넣으세요. (스터디 리스트) -->
         <div class="study-wrap" th:each="study, i: ${studies}">
             <a th:href="'/studies/' + ${study.id} + '/detail'">
-                <p th:text="'스터디명 : ' + ${#strings.toString(study.name)}">이름</p>
-                <p th:text="'카테고리 : ' + ${#strings.toString(study.category)}"></p>
-                <p th:text="'지역 : ' + ${#strings.toString(study.address.city)}"></p>
-                <p th:text="'모집 인원 : ' + ${#strings.toString(study.capacity)} + '명'">모집 인원</p>
+                <p class="detail">제목</p>
+                <p class="detail-data" th:text="${#strings.toString(study.name)}">토익주말반</p>
+                <p class="detail">카테고리</p>                
+                <p class="detail-data"th:text="${#strings.toString(study.category)}">IT</p>
+                <p class="detail">지역</p>
+                <p class="detail-data" th:text="${#strings.toString(study.address.city)}">서울시</p>
+                <p class="detail">모집 인원</p>                
+                <p class="detail-data" th:text="${#strings.toString(study.capacity)}">5명</p>
             </a>
         </div>
     </div>
 
 
 </div>
+</div>
+
 <script>
     // 모달
     const body = document.querySelector("body");

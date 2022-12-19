@@ -11,17 +11,13 @@ import java.util.logging.Logger;
 @Aspect
 @Slf4j
 public class LogConfig {
-
-//    @Around("execution(* hello.helloSpring..*(..))")
-
     @Around("execution(* softwareArchitecture.termProject..*(..))")
     public Object logging(ProceedingJoinPoint pjp) throws Throwable {
         Object result = pjp.proceed();
-
         log.info("LogAspect Root:: "+pjp.getSignature().getDeclaringTypeName());
         log.info("LogAspect Method:: "+pjp.getSignature().getName());
-
         return result;
     }
-
 }
+
+

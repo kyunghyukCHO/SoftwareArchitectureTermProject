@@ -10,11 +10,16 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <title>스터디</title>
     <style>
       * {
         padding: 0;
         margin: 0;
+        font-family: 'Nanum Myeongjo', serif;
       }
       .header {
         display: flex;
@@ -46,6 +51,9 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        background-image: url('https://i.ibb.co/Jd3mQ93/2022-12-19-12-02-04.png');
+        background-repeat: no-repeat;
+        background-size: 100%;
       }
       .main-left,
       .main-right {
@@ -65,6 +73,7 @@
         background-color: #eee;
         padding: 20px 40px;
         margin-top: 20px;
+        width: 420px;
       }
       .study-info-wrap {
         min-height: 500px;
@@ -107,13 +116,46 @@
         width: 100%;
       }
 
+      p.headfont{
+        font-size: 50px;
+        font-style: bold;
+      }
+
+      button.btn.btn-primary{
+        background-color: black;
+        color: white;
+        text-align: center;
+        border: 0px;
+      }
+
+      button.btn.btn-primary.submit-button{
+        background-color: black;
+        color: white;
+        width: 420px;
+        height: 50px;
+        text-align: center;
+        border: 0px;
+      }
+
+      #btn1{
+        width: 70px;
+        height: 40px;
+        border: 0px;
+        text-align: center;
+        font-size: 15px;
+      }
+
+
+
+
+
     </style>
 </head>
 <body>
 <!-- header -->
 <div class="header">
     <div style="width: 260px"></div>
-    <p>Study With Us</p>
+    <p class="headfont">Study With Us</p>
     <div class="header-center-wrap">
         <button class="btn btn-primary" onclick="location.href = '/new'">스터디 생성</button>
         <button class="btn btn-outline-secondar" onclick="location.href = '/logout'">로그아웃</button>
@@ -143,7 +185,7 @@
             <p>참여자</p>
             <div class="people-detail intro-detail">
                 <a th:each="member, i: ${members}" th:href="'/studies/' + ${member.id} + '/detail'">
-                    <button class="btn btn-primary" th:text="${#strings.toString(member.name)}"></button>
+                    <button id="btn1"class="btn btn-primary" th:text="${#strings.toString(member.name)}">조경혁</button>
                 </a>
             </div>
         </div>
