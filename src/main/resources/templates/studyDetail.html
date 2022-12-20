@@ -184,9 +184,8 @@
         <div class="people-wrap">
             <p>참여자</p>
             <div class="people-detail intro-detail">
-                <a th:each="member, i: ${members}" th:href="'/studies/' + ${member.id} + '/detail'">
-                    <button id="btn1"class="btn btn-primary" th:text="${#strings.toString(member.name)}">조경혁</button>
-                </a>
+                <button id="btn1" class="btn btn-primary" style="width: auto; margin: 5px;" th:if="${type != 0}" th:each="member, i: ${members}" th:text="${#strings.toString(member.name)} + ' : ' + ${#strings.toString(member.email)}"></button>
+                <button id="btn2" class="btn btn-primary" style="width: auto; margin: 5px;" th:if="${type == 0}" th:each="member, i: ${members}" th:text="${#strings.toString(member.name)}"></button>
             </div>
         </div>
     </div>
